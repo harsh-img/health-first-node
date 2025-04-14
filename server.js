@@ -7,6 +7,7 @@ dotenv.config();
 
 const app = express();
 
+
 const corsOptions = {
     origin: 'http://localhost:5176', // Allow requests from this origin
     methods: ['GET', 'POST'], // Allow GET and POST methods
