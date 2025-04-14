@@ -3,16 +3,21 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const router = require('./router/auth');
 const cors = require("cors"); 
-
 dotenv.config();
 
 const app = express();
+
+const corsOptions = {
+    origin: 'http://localhost:5176', // Allow requests from this origin
+    methods: ['GET', 'POST'], // Allow GET and POST methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+    credentials: true // Allow credentials
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use('/api/auth',router);
-app.use(cors({
-    origin: ['http://localhost:5176'],
-    credentials: true,
-}));  
 
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
