@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# dotenv
+.env
+
+# logs
+*.log
+logs/
+npm-debug.log*
+
+# system
+.DS_Store
+Thumbs.db
+
+# package-lock (optional if using yarn)
+package-lock.json
