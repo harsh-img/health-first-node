@@ -1,6 +1,7 @@
 const userSchema = require('../models/auth');
 const {generateToken} = require('../utils/token');
 const bcrypt = require('bcrypt');
+const contactSchema = require('../models/contact');
 
 const register = async (req,res) => {
     console.log(req.body);
@@ -60,7 +61,37 @@ const login = async (req,res) => {
     });
 }
 
+const contact = async (req,res) => {
+
+    try{
+
+        const { name, email, subject, description } = req.body;
+
+        const contact = await contactSchema.create({
+            name,
+            email,
+            subject,
+            description
+        });
+
+        return res.status(200).json({
+            message: "Contact created successfully",
+            error: false,
+            contact: contact
+        });
+
+    }catch(err){
+
+        return res.status(400).json({
+            message: err.message,
+            error: true
+        });
+    }
+
+}
+
 module.exports = {
     register,
-    login
+    login,
+    contact
 }
