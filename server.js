@@ -9,11 +9,10 @@ const app = express();
 
 
 const corsOptions = {
-    origin: 'http://localhost:5176', // Allow requests from this origin
-    methods: ['GET', 'POST'], // Allow GET and POST methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-    credentials: true // Allow credentials
-};
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
 
 app.use(cors(corsOptions));
 
