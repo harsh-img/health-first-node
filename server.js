@@ -9,7 +9,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use('/api/auth',router);
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5176'],
+    credentials: true,
+}));  
 
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
