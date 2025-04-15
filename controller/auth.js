@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 const contactSchema = require('../models/contact');
 
 const register = async (req,res) => {
-    console.log(req.body);
+   
     const {name,email,mobile,password} = req.body;
 
-    const existingUser = await userSchema.findOne({
+    const existingUser = await userSchema.findOne({ 
         $or: [{ email }, { mobile }]
       });
       
