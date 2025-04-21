@@ -1,11 +1,7 @@
-const mangoose = require('mongoose');
 const productSchema = require('../models/product');
-const categorySchema = require('../models/category');
-const brandSchema = require('../models/brand');
 const productVarientSchema = require('../models/productVarient');
 const varientSchema = require('../models/varient');
 const varientAttributeSchema = require('../models/varientAttiribute');
-const productVarient = require('../models/productVarient');
 
 
 const getProductDetail = async (req, res) => {
@@ -59,6 +55,7 @@ const getProductDetail = async (req, res) => {
             brand_name: product.brand_id.name,
             status: product.status,
             faq: JSON.parse(product.faq),
+            rating:5,
             createdAt: product.createdAt,
             updatedAt: product.updatedAt,
             variants: groupedVariants,
@@ -119,6 +116,7 @@ const getProduct = async (req, res) => {
                     featured:product.featured,
                     popular:product.popular,
                     status:product.status,
+                    rating:5,
                     images: productVariant.images.map(image => `${req.protocol}://${req.get('host')}/uploads/products/${image}`),
                     createdAt: product.createdAt,
                     updatedAt: product.updatedAt
