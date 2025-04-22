@@ -10,7 +10,7 @@ const getProductDetail = async (req, res) => {
 
         // Get main product with populated category and brand names
         const product = await productSchema.findById(productId)
-            .populate('category_id', 'name')  // Only get 'name' field
+            .populate('category_id', 'name')
             .populate('brand_id', 'name');
 
         if (!product) {
@@ -29,12 +29,11 @@ const getProductDetail = async (req, res) => {
 
         const varientAttributes = await varientAttributeSchema.find({ _id: { $in: uniqueAttrIds } });
 
-        // Group variant attributes by variant name
-        const groupedVariants = varients.map(variant => {
+        // Group variant attributes as a key-value object
+        const groupedVariants = {};
+        varients.forEach(variant => {
             const attributesForVariant = varientAttributes.filter(attr => attr.varient_id.toString() === variant._id.toString());
-            return {
-                [variant.name]: attributesForVariant.map(attr => attr.name)
-            };
+            groupedVariants[variant.name] = attributesForVariant.map(attr => attr.name);
         });
 
         // Format only the first variant if available
@@ -43,7 +42,7 @@ const getProductDetail = async (req, res) => {
             images: productVariants[0].images.map(img => `${req.protocol}://${req.get('host')}/uploads/products/${img}`)
         } : {};
 
-        // Build final data with category/brand name and initial variant
+        // Build final data
         const data = {
             _id: product._id,
             name: product.name,
@@ -55,12 +54,12 @@ const getProductDetail = async (req, res) => {
             brand_name: product.brand_id.name,
             status: product.status,
             faq: JSON.parse(product.faq),
-            rating:5,
+            rating: 5,
             createdAt: product.createdAt,
             updatedAt: product.updatedAt,
-            variants: groupedVariants,
-            product_type:product.product_type,
-            ...initialVariant  // Merge initial variant directly into the response
+            variants: groupedVariants, // easier to access like variants.Color
+            product_type: product.product_type,
+            ...initialVariant
         };
 
         return res.status(200).json({

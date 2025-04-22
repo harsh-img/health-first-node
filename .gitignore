@@ -2,7 +2,6 @@
 node_modules/
 
 # dotenv
-.env
 
 # logs
 *.log
@@ -15,3 +14,8 @@ Thumbs.db
 
 # package-lock (optional if using yarn)
 package-lock.json
+config.bat
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
