@@ -59,6 +59,7 @@ const getProductDetail = async (req, res) => {
             createdAt: product.createdAt,
             updatedAt: product.updatedAt,
             variants: groupedVariants,
+            product_type:product.product_type,
             ...initialVariant  // Merge initial variant directly into the response
         };
 
